@@ -8,8 +8,8 @@ import java.util.UUID;
 public class MyServerHandler extends SimpleChannelInboundHandler<String> {
 
   @Override
-  protected void channelRead0(ChannelHandlerContext ctx, String msg) {
-
+  protected void channelRead0(ChannelHandlerContext ctx, String msg) throws InterruptedException {
+    Thread.sleep(2000);
     final Channel channel = ctx.channel();
     System.out.println(channel.remoteAddress() + ", " + msg);
     channel.writeAndFlush("from server : " + UUID.randomUUID());
