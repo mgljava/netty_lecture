@@ -31,4 +31,24 @@ public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObjec
       ctx.channel().closeFuture();
     }
   }
+
+  @Override
+  public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+    System.out.println("channelRegistered");
+  }
+
+  @Override
+  public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+    System.out.println("channelUnregistered");
+  }
+
+  @Override
+  public void channelActive(ChannelHandlerContext ctx) throws Exception {
+    System.out.println("channelActive");
+  }
+
+  @Override
+  public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+    System.out.println("channelInactive");
+  }
 }
