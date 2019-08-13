@@ -1,4 +1,4 @@
-package com.github.mgljava.thirdexample;
+package com.github.mgljava.wechat;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
