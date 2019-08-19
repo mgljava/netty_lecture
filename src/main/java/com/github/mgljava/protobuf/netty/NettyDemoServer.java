@@ -31,14 +31,10 @@ public class NettyDemoServer {
             @Override
             protected void initChannel(SocketChannel ch) {
               ChannelPipeline pipeline = ch.pipeline();
-
-              //解码器，通过Google Protocol Buffers序列化框架动态的切割接收到的ByteBuf
               pipeline.addLast(new ProtobufVarint32FrameDecoder());
-              //服务器端接收的是客户端RequestUser对象，所以这边将接收对象进行解码生产实列
+              // 解码器，将数据解码成 RequestUser 对象
               pipeline.addLast(new ProtobufDecoder(NettyDemoData.RequestUser.getDefaultInstance()));
-              //Google Protocol Buffers编码器
               pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
-              //Google Protocol Buffers编码器
               pipeline.addLast(new ProtobufEncoder());
 
               pipeline.addLast(new NettyDemoServerHandler());
@@ -51,6 +47,5 @@ public class NettyDemoServer {
       bossGroup.shutdownGracefully();
       workerGroup.shutdownGracefully();
     }
-
   }
 }

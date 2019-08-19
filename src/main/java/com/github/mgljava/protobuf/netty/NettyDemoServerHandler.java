@@ -7,14 +7,14 @@ import io.netty.channel.SimpleChannelInboundHandler;
 public class NettyDemoServerHandler extends SimpleChannelInboundHandler<RequestUser> {
 
   @Override
-  protected void channelRead0(ChannelHandlerContext ctx, RequestUser msg) throws Exception {
-    System.out.println(msg.getUserName());
-    System.out.println(msg.getAge());
-    System.out.println(msg.getPassword());
+  protected void channelRead0(ChannelHandlerContext ctx, RequestUser requestUser) {
+    System.out.println("姓名：" + requestUser.getUserName());
+    System.out.println("年龄：" + requestUser.getAge());
+    System.out.println("密码：" + requestUser.getPassword());
 
-    NettyDemoData.ResponseBank bank = NettyDemoData.ResponseBank.newBuilder().setBankName("中国工商银行")
-        .setBankNo("6222222200000000000").setMoney(560000.23).build();
+    NettyDemoData.ResponseBank response = NettyDemoData.ResponseBank.newBuilder().setBankName("银行")
+        .setBankNo("123456789987654321").setMoney(100.00).build();
 
-    ctx.channel().writeAndFlush(bank);
+    ctx.channel().writeAndFlush(response);
   }
 }
