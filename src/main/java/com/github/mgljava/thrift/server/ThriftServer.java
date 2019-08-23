@@ -26,5 +26,12 @@ public class ThriftServer {
     TServer server = new THsHaServer(arg);
     System.out.println("Server Started...");
     server.serve();
+    /**
+     * Thrift 传输格式
+     * 1. TBinaryProtocol
+     * 2. TCompactProtocol
+     * 3. TJSONProtocol
+     * 4. TSimpleJSONProtocol
+     */
   }
 }
