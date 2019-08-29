@@ -7,7 +7,17 @@ option java_outer_classname = "StudentProto";
 package guide;
 
 service StudentService {
-  rpc getRealNameByUsername(MyRequest) returns (MyResponse) {}
+  rpc getRealNameByUsername (MyRequest) returns (MyResponse) {
+  }
+
+  rpc getStreamRealName (MyRequest) returns (stream MyResponse) {
+  }
+
+  rpc getRealNameByStreamUsername (stream MyRequest) returns (MyResponse) {
+  }
+
+  rpc getStreamRealNameByStreamUsername (stream MyRequest) returns (stream MyResponse) {
+  }
 }
 
 message MyRequest {

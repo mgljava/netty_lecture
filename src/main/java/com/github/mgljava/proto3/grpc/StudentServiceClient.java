@@ -6,6 +6,7 @@ import com.github.mgljava.proto3.StudentServiceGrpc;
 import com.github.mgljava.proto3.StudentServiceGrpc.StudentServiceBlockingStub;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import java.util.Iterator;
 
 public class StudentServiceClient {
 
@@ -19,5 +20,10 @@ public class StudentServiceClient {
 
     final String realname = sweep.getRealname();
     System.out.println("realname is : " + realname);
+
+    final Iterator<MyResponse> clientUsername = studentServiceBlockingStub
+        .getStreamRealName(MyRequest.newBuilder().setUsername("client username").build());
+
+    clientUsername.forEachRemaining(item -> System.out.println(item.getRealname()));
   }
 }

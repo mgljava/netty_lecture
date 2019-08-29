@@ -19,4 +19,22 @@ public class StudentServiceImpl extends StudentServiceImplBase {
     responseObserver.onNext(sweepMonk);
     responseObserver.onCompleted();
   }
+
+  @Override
+  public void getStreamRealName(MyRequest request, StreamObserver<MyResponse> responseObserver) {
+    System.out.println("getStreamRealName method Got param : " + request.getUsername());
+    responseObserver.onNext(MyResponse.newBuilder().setRealname("张三").build());
+    responseObserver.onNext(MyResponse.newBuilder().setRealname("李四").build());
+    responseObserver.onCompleted();
+  }
+
+  @Override
+  public StreamObserver<MyRequest> getRealNameByStreamUsername(StreamObserver<MyResponse> responseObserver) {
+    return null;
+  }
+
+  @Override
+  public StreamObserver<MyRequest> getStreamRealNameByStreamUsername(StreamObserver<MyResponse> responseObserver) {
+    return null;
+  }
 }

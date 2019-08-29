@@ -35,10 +35,15 @@ public final class StudentProto {
     String[] descriptorData = {
       "\n\rStudent.proto\022\005guide\"\035\n\tMyRequest\022\020\n\010u" +
       "sername\030\001 \001(\t\"\036\n\nMyResponse\022\020\n\010realname\030" +
-      "\001 \001(\t2P\n\016StudentService\022>\n\025getRealNameBy" +
-      "Username\022\020.guide.MyRequest\032\021.guide.MyRes" +
-      "ponse\"\000B+\n\031com.github.mgljava.proto3B\014St" +
-      "udentProtoP\001b\006proto3"
+      "\001 \001(\t2\246\002\n\016StudentService\022>\n\025getRealNameB" +
+      "yUsername\022\020.guide.MyRequest\032\021.guide.MyRe" +
+      "sponse\"\000\022<\n\021getStreamRealName\022\020.guide.My" +
+      "Request\032\021.guide.MyResponse\"\0000\001\022F\n\033getRea" +
+      "lNameByStreamUsername\022\020.guide.MyRequest\032" +
+      "\021.guide.MyResponse\"\000(\001\022N\n!getStreamRealN" +
+      "ameByStreamUsername\022\020.guide.MyRequest\032\021." +
+      "guide.MyResponse\"\000(\0010\001B+\n\031com.github.mgl" +
+      "java.proto3B\014StudentProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
