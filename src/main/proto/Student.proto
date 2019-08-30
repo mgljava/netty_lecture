@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option java_multiple_files = true;
+option java_multiple_files = false;
 option java_package = "com.github.mgljava.proto3";
 option java_outer_classname = "StudentProto";
 
@@ -13,10 +13,10 @@ service StudentService {
   rpc getStreamRealName (MyRequest) returns (stream MyResponse) {
   }
 
-  rpc getRealNameByStreamUsername (stream MyRequest) returns (MyResponse) {
+  rpc GetStudentByAges (stream StudentRequest) returns (StudentResponse) {
   }
 
-  rpc getStreamRealNameByStreamUsername (stream MyRequest) returns (stream MyResponse) {
+  rpc GetStudentsByAges (stream StudentRequest) returns (stream StudentResponse) {
   }
 }
 
@@ -29,7 +29,9 @@ message MyResponse {
 }
 
 message StudentResponse {
-
+  string name = 1;
+  int32 age = 2;
+  string address = 3;
 }
 
 message StudentRequest {

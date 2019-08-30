@@ -2,6 +2,8 @@ package com.github.mgljava.proto3.grpc;
 
 import com.github.mgljava.proto3.MyRequest;
 import com.github.mgljava.proto3.MyResponse;
+import com.github.mgljava.proto3.StudentRequest;
+import com.github.mgljava.proto3.StudentResponse;
 import com.github.mgljava.proto3.StudentServiceGrpc.StudentServiceImplBase;
 import io.grpc.stub.StreamObserver;
 
@@ -30,33 +32,55 @@ public class StudentServiceImpl extends StudentServiceImplBase {
 
   /**
    * 客户端流对象，服务端单个对象
-   * @param responseObserver
-   * @return
    */
   @Override
-  public StreamObserver<MyRequest> getRealNameByStreamUsername(StreamObserver<MyResponse> responseObserver) {
-    return new StreamObserver<MyRequest>() {
-      @Override
-      public void onNext(MyRequest value) {
+  public StreamObserver<StudentRequest> getStudentByAges(StreamObserver<StudentResponse> responseObserver) {
 
+    return new StreamObserver<StudentRequest>() {
+      @Override
+      public void onNext(StudentRequest value) {
+        System.out.println(value.getAge());
       }
 
       @Override
       public void onError(Throwable t) {
-
+        t.printStackTrace();
       }
 
       @Override
       public void onCompleted() {
-        responseObserver.onNext(MyResponse.newBuilder().setRealname("3 11").build());
-        responseObserver.onNext(MyResponse.newBuilder().setRealname("3 21").build());
+        responseObserver.onNext(StudentResponse.newBuilder()
+            .setName("张三")
+            .setAge(20)
+            .setAddress("成都").build());
         responseObserver.onCompleted();
       }
     };
   }
 
+
   @Override
-  public StreamObserver<MyRequest> getStreamRealNameByStreamUsername(StreamObserver<MyResponse> responseObserver) {
-    return null;
+  public StreamObserver<StudentRequest> getStudentsByAges(StreamObserver<StudentResponse> responseObserver) {
+    return new StreamObserver<StudentRequest>() {
+      @Override
+      public void onNext(StudentRequest value) {
+        System.out.println("server get param : " + value.getAge());
+      }
+
+      @Override
+      public void onError(Throwable t) {
+        t.printStackTrace();
+      }
+
+      @Override
+      public void onCompleted() {
+        for (int i = 0; i < 10; i++) {
+          responseObserver.onNext(StudentResponse.newBuilder().setAge(i * 10)
+              .setName("name" + i)
+              .setAddress("address" + i).build());
+        }
+        responseObserver.onCompleted();
+      }
+    };
   }
 }
