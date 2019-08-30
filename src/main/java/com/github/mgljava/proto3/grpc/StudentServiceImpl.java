@@ -28,9 +28,31 @@ public class StudentServiceImpl extends StudentServiceImplBase {
     responseObserver.onCompleted();
   }
 
+  /**
+   * 客户端流对象，服务端单个对象
+   * @param responseObserver
+   * @return
+   */
   @Override
   public StreamObserver<MyRequest> getRealNameByStreamUsername(StreamObserver<MyResponse> responseObserver) {
-    return null;
+    return new StreamObserver<MyRequest>() {
+      @Override
+      public void onNext(MyRequest value) {
+
+      }
+
+      @Override
+      public void onError(Throwable t) {
+
+      }
+
+      @Override
+      public void onCompleted() {
+        responseObserver.onNext(MyResponse.newBuilder().setRealname("3 11").build());
+        responseObserver.onNext(MyResponse.newBuilder().setRealname("3 21").build());
+        responseObserver.onCompleted();
+      }
+    };
   }
 
   @Override

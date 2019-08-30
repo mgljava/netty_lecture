@@ -27,3 +27,11 @@ message MyRequest {
 message MyResponse {
   string realname = 1;
 }
+
+message StudentResponse {
+
+}
+
+message StudentRequest {
+  int32 age = 1;
+}
