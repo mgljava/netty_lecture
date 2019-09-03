@@ -27,7 +27,7 @@ public class StudentServiceClient {
     final String realname = sweep.getRealname();
     System.out.println("realname is : " + realname);
 
-    System.out.println("-------------------------");
+    System.out.println("--------------------------");
 
     // 客户端单个请求，服务端返回一个 stream 对象
     final Iterator<MyResponse> clientUsername = studentServiceBlockingStub
@@ -61,14 +61,12 @@ public class StudentServiceClient {
     }
     studentsByAges.onCompleted();
 
-    System.out.println("-------------------------");
+    System.out.println("----------------------------");
     // 客户端和服务端都是 stream 对象
     StreamObserver<StudentResponse> streamObserver = new StreamObserver<StudentResponse>() {
       @Override
       public void onNext(StudentResponse value) {
-        System.out.println(value.getName());
-        System.out.println(value.getAge());
-        System.out.println(value.getAddress());
+        System.out.println("收到服务端信息，姓名： " + value.getName() + "， 年龄 ： " + value.getAge() + "，地址：" + value.getAddress());
       }
 
       @Override
@@ -84,6 +82,7 @@ public class StudentServiceClient {
     final StreamObserver<StudentRequest> studentsByAges1 = sub.getStudentsByAges(streamObserver);
     for (int i = 1; i < 10; i++) {
       studentsByAges1.onNext(StudentRequest.newBuilder().setAge(i * 10).build());
+      Thread.sleep(1000);
     }
     studentsByAges1.onCompleted();
     Thread.sleep(10000);

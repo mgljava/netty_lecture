@@ -6,6 +6,7 @@ import com.github.mgljava.proto3.StudentRequest;
 import com.github.mgljava.proto3.StudentResponse;
 import com.github.mgljava.proto3.StudentServiceGrpc.StudentServiceImplBase;
 import io.grpc.stub.StreamObserver;
+import java.util.UUID;
 
 public class StudentServiceImpl extends StudentServiceImplBase {
 
@@ -65,6 +66,9 @@ public class StudentServiceImpl extends StudentServiceImplBase {
       @Override
       public void onNext(StudentRequest value) {
         System.out.println("server get param : " + value.getAge());
+        responseObserver.onNext(StudentResponse.newBuilder().setName(UUID.randomUUID().toString())
+            .setAge(value.getAge())
+            .setAddress("北京").build());
       }
 
       @Override
@@ -74,11 +78,6 @@ public class StudentServiceImpl extends StudentServiceImplBase {
 
       @Override
       public void onCompleted() {
-        for (int i = 0; i < 10; i++) {
-          responseObserver.onNext(StudentResponse.newBuilder().setAge(i * 10)
-              .setName("name" + i)
-              .setAddress("address" + i).build());
-        }
         responseObserver.onCompleted();
       }
     };
