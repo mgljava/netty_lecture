@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
+/**
+ * 从文件中读到程序中
+ */
 public class NioTest2 {
 
   public static void main(String[] args) throws Exception {
