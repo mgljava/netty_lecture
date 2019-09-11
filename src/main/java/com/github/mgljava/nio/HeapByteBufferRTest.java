@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
  * 只读Buffer， 我们可以调用Buffer的asReadOnlyBuffer转为一个只读Buffer，
  * 但是我们不能将只读Buffer转为可读写的Buffer
  */
-public class NioTest7 {
+public class HeapByteBufferRTest {
 
   public static void main(String[] args) {
     ByteBuffer buffer = ByteBuffer.allocate(10);
