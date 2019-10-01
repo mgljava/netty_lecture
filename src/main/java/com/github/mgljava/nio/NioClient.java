@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
@@ -15,7 +16,7 @@ import java.util.concurrent.Executors;
 
 public class NioClient {
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws Exception {
     SocketChannel socketChannel = null;
     try {
       socketChannel = SocketChannel.open();
@@ -58,9 +59,26 @@ public class NioClient {
                     client.write(writeBuffer);
                   }
                 });
-              } catch (IOException e) {
+              } catch (Exception e) {
                 e.printStackTrace();
               }
+            }
+            try {
+              client.register(selector, SelectionKey.OP_READ);
+            } catch (ClosedChannelException e) {
+              e.printStackTrace();
+            }
+          } else if (selectionKey.isReadable()) {
+            SocketChannel socketChannel1 = (SocketChannel) selectionKey.channel();
+            ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+            try {
+              int read = socketChannel1.read(byteBuffer);
+              if (read > 0) {
+                String message = new String(byteBuffer.array(), 0, read);
+                System.out.println(message);
+              }
+            } catch (IOException e) {
+              e.printStackTrace();
             }
           }
         });
