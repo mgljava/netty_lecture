@@ -30,8 +30,8 @@ public class CharsetTest {
 
     // final Charset charset = Charset.forName("utf-8");
     final Charset charset = Charset.forName("iso-8859-1");
-    final CharsetDecoder charsetDecoder = charset.newDecoder(); // 把字节数组转为字符串
-    final CharsetEncoder charsetEncoder = charset.newEncoder(); // 把字符串转为字节数组
+    final CharsetEncoder encoder = charset.newEncoder(); // 编码：把字符串转为字节数组
+    final CharsetDecoder decoder = charset.newDecoder(); // 解码：把字节数组转为字符串
 
     Charset.availableCharsets().forEach((key, value) -> System.out.println(key + ", " + value));
 
@@ -39,8 +39,10 @@ public class CharsetTest {
 
     System.out.println(Charset.defaultCharset());
 
-    CharBuffer charBuffer = charsetDecoder.decode(inputData);
-    ByteBuffer outputData = charsetEncoder.encode(charBuffer);
+    CharBuffer charBuffer = decoder.decode(inputData);
+    System.out.println(charBuffer.get(0));
+
+    ByteBuffer outputData = encoder.encode(charBuffer);
 
     outputFileChannel.write(outputData);
 
