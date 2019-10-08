@@ -5,6 +5,7 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.HttpServerCodec;
 
+// 通道初始化器，范性一般传入 SocketChannel
 public class TestServerInitializer extends ChannelInitializer<SocketChannel> {
 
   @Override
