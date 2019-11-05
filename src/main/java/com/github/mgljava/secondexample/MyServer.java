@@ -10,6 +10,7 @@ public class MyServer {
 
   public static void main(String[] args) throws InterruptedException {
 
+    // 死循环,NioEventLoopGroup完成一些准备工作，给一些变量赋值
     EventLoopGroup bossGroup = new NioEventLoopGroup();
     EventLoopGroup workerGroup = new NioEventLoopGroup();
 
