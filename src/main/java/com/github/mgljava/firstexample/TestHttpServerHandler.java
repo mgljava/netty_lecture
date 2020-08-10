@@ -12,6 +12,8 @@ import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpVersion;
 import io.netty.util.CharsetUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObject> {
 
@@ -19,10 +21,17 @@ public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObjec
    * 读取客户端发过来的请求，并向客户端返回响应.
    */
   @Override
-  protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) {
+  protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) throws URISyntaxException {
+    System.out.println(msg.getClass());
     if (msg instanceof HttpRequest) {
-      ByteBuf content = Unpooled.copiedBuffer("Hello World", CharsetUtil.UTF_8);
 
+      HttpRequest httpRequest = (HttpRequest) msg;
+      System.out.println("request method ： " + httpRequest.method().name());
+      URI uri = new URI(httpRequest.uri());
+      System.out.println("uri : " + uri.getPath());
+
+      ByteBuf content = Unpooled.copiedBuffer("Hello World", CharsetUtil.UTF_8);
+      System.out.println("method invoked channelRead0");
       FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, content);
       response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/plain");
       response.headers().set(HttpHeaderNames.CONTENT_LENGTH, content.readableBytes());
