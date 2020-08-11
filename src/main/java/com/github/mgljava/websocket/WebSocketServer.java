@@ -9,7 +9,7 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import java.net.InetSocketAddress;
 
-public class MyServer {
+public class WebSocketServer {
 
   public static void main(String[] args) throws Exception {
 
@@ -20,7 +20,7 @@ public class MyServer {
       ServerBootstrap serverBootstrap = new ServerBootstrap();
       serverBootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
           .handler(new LoggingHandler(LogLevel.INFO))
-          .childHandler(new WebSocketChannelInitializer());
+          .childHandler(new WebSocketInitializer());
       final ChannelFuture channelFuture = serverBootstrap.bind(new InetSocketAddress(8899)).sync();
       channelFuture.channel().closeFuture().sync();
     } finally {

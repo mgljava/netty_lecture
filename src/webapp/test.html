@@ -7,22 +7,23 @@
 
 <script type="text/javascript">
 
-  var socket;
+  let socket;
   if (window.WebSocket) {
     socket = new WebSocket("ws://localhost:8899/ws");
 
-    socket.onmessage = function (ev) {
-      var ta = document.getElementById("responseText");
-      ta.value = ta.value + "\n" + ev.data;
+    // event.data 代表服务器返回的数据
+    socket.onmessage = function (event) {
+      let ta = document.getElementById("responseText");
+      ta.value = ta.value + "\n" + event.data;
     };
 
-    socket.onopen = function (ev) {
-      var ta = document.getElementById("responseText");
+    socket.onopen = function () {
+      let ta = document.getElementById("responseText");
       ta.value = "连接开启！";
     };
 
-    socket.onclose = function (ev) {
-      var ta = document.getElementById("responseText");
+    socket.onclose = function () {
+      let ta = document.getElementById("responseText");
       ta.value = ta.value + "\n" + "连接关闭！";
     }
   } else {
