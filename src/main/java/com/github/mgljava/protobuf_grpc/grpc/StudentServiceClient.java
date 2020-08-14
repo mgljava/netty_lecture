@@ -19,6 +19,8 @@ public class StudentServiceClient {
     final ManagedChannelBuilder<?> channelBuilder = ManagedChannelBuilder.forAddress("localhost", 8090).usePlaintext();
     final ManagedChannel channel = channelBuilder.build();
     final StudentServiceBlockingStub studentServiceBlockingStub = StudentServiceGrpc.newBlockingStub(channel);
+
+    // 如果客户端是流式的，那么都是异步调用
     final StudentServiceStub sub = StudentServiceGrpc.newStub(channel);
 
     // 双方都是单个请求
@@ -62,6 +64,7 @@ public class StudentServiceClient {
     studentsByAges.onCompleted();
 
     System.out.println("----------------------------");
+
     // 客户端和服务端都是 stream 对象
     StreamObserver<StudentResponse> streamObserver = new StreamObserver<StudentResponse>() {
       @Override
@@ -85,6 +88,8 @@ public class StudentServiceClient {
       Thread.sleep(1000);
     }
     studentsByAges1.onCompleted();
+
+    // 需要休眠来保证程序异步执行
     Thread.sleep(10000);
   }
 }

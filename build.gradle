@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        // classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.8'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.8'
     }
 }
 
@@ -11,7 +11,7 @@ plugins {
     id 'java'
 }
 
-// apply plugin: 'com.google.protobuf'
+apply plugin: 'com.google.protobuf'
 
 group 'com.github.mgljava'
 version '1.0'
@@ -46,7 +46,7 @@ jar {
 
 
 // gRPC 的gradle插件
-/*protobuf {
+protobuf {
     generatedFilesBaseDir = "src"
     protoc {
         artifact = "com.google.protobuf:protoc:3.9.0"
@@ -63,4 +63,12 @@ jar {
             }
         }
     }
-}*/
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir 'src/rpc'
+        }
+    }
+}
