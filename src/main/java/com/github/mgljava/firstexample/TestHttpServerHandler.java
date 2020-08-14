@@ -2,6 +2,7 @@ package com.github.mgljava.firstexample;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
@@ -35,7 +36,7 @@ public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObjec
       FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, content);
       response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/plain");
       response.headers().set(HttpHeaderNames.CONTENT_LENGTH, content.readableBytes());
-
+      Channel channel = ctx.channel();
       ctx.writeAndFlush(response);
       ctx.channel().closeFuture();
     }

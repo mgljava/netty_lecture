@@ -45,6 +45,7 @@ jar {
 }
 
 
+// gRPC 的gradle插件
 /*protobuf {
     generatedFilesBaseDir = "src"
     protoc {
