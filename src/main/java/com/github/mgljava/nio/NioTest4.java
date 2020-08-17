@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
+/**
+ * 把一个文件的内容复制到另一个文件
+ */
 public class NioTest4 {
 
   public static void main(String[] args) throws Exception {
@@ -17,17 +20,17 @@ public class NioTest4 {
   private static void byteBufferTest() throws IOException {
     long start = System.currentTimeMillis();
     final FileChannel inputStreamChannel;
-    try (FileInputStream fileInputStream = new FileInputStream("niotestfile/input.txt")) {
-      inputStreamChannel = fileInputStream.getChannel();
-    }
+    FileInputStream fileInputStream = new FileInputStream("niotestfile/input.txt");
+    inputStreamChannel = fileInputStream.getChannel();
     final FileChannel outputStreamChannel;
-    try (FileOutputStream fileOutputStream = new FileOutputStream("niotestfile/output.txt")) {
-      outputStreamChannel = fileOutputStream.getChannel();
-    }
-    ByteBuffer byteBuffer = ByteBuffer.allocate(8096000);
+    FileOutputStream fileOutputStream = new FileOutputStream("niotestfile/output.txt");
+    outputStreamChannel = fileOutputStream.getChannel();
+
+    ByteBuffer byteBuffer = ByteBuffer.allocate(5);
     while (true) {
-      byteBuffer.clear();
+      byteBuffer.clear(); // 如果注释掉该行，会一直写，因为没有重置 position和limit，所以read方法返回0
       int read = inputStreamChannel.read(byteBuffer);
+      System.out.println("read : " + read);
       if (-1 == read) {
         break;
       }
