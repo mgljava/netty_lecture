@@ -7,7 +7,7 @@ import java.nio.channels.FileChannel;
 /**
  * 从文件中读到程序中
  */
-public class NioTest2 {
+public class ReadFromChannel {
 
   public static void main(String[] args) throws Exception {
 

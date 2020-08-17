@@ -7,7 +7,7 @@ import java.nio.channels.FileChannel;
 /**
  * 将内容写到文件中
  */
-public class NioTest3 {
+public class WriteToChannel {
 
   public static void main(String[] args) throws Exception{
 

@@ -16,12 +16,12 @@ public class NioTest1 {
       int randomNumber = new SecureRandom().nextInt(6);
       intBuffer.put(randomNumber);
     }
-    System.out.println("---------------------------");
+    System.out.println("-------------1--------------");
     System.out.println("capacity : " + intBuffer.capacity());
     System.out.println("limit : " + intBuffer.limit());
     System.out.println("position : " + intBuffer.position());
-    intBuffer.flip();
-    System.out.println("---------------------------");
+    intBuffer.flip(); // 翻转
+    System.out.println("-------------2--------------");
     System.out.println("capacity : " + intBuffer.capacity());
     System.out.println("limit : " + intBuffer.limit());
     System.out.println("position : " + intBuffer.position());

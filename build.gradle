@@ -47,7 +47,7 @@ jar {
 
 // gRPC 的gradle插件
 protobuf {
-    generatedFilesBaseDir = "src"
+    generatedFilesBaseDir = "src" // 设置生成的java源文件的目录
     protoc {
         artifact = "com.google.protobuf:protoc:3.9.0"
     }
@@ -59,7 +59,7 @@ protobuf {
     generateProtoTasks {
         all()*.plugins {
             grpc {
-                 outputSubDir = "java"
+                 outputSubDir = "java" // 设置输出目录
             }
         }
     }
