@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
  * 类型化的 put与 get方法
  * ByteBuffer 使用, 可以使用到自定义协议中，放进去是什么，取出来就是什么。
  */
-public class NioTest5 {
+public class ByteBufferTest {
 
   public static void main(String[] args) {
 

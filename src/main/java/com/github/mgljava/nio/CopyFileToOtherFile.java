@@ -9,7 +9,7 @@ import java.nio.channels.FileChannel;
 /**
  * 把一个文件的内容复制到另一个文件
  */
-public class NioTest4 {
+public class CopyFileToOtherFile {
 
   public static void main(String[] args) throws Exception {
 

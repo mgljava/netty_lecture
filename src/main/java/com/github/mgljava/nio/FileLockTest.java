@@ -4,6 +4,7 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 
+// 排它锁 只能有一个线程写，多个线程可以去读
 public class FileLockTest {
 
   public static void main(String[] args) throws Exception {
