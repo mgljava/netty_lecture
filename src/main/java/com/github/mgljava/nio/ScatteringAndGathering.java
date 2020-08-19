@@ -8,8 +8,10 @@ import java.util.Arrays;
 
 /**
  * 关于Buffer的 Scattering 与 Gathering
+ *
+ * 可以传递buffer数组
  */
-public class NioTest11 {
+public class ScatteringAndGathering {
 
   public static void main(String[] args) throws Exception {
 
