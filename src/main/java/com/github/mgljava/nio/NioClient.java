@@ -23,7 +23,7 @@ public class NioClient {
       socketChannel.configureBlocking(false);
 
       Selector selector = Selector.open();
-      socketChannel.register(selector, SelectionKey.OP_CONNECT);
+      socketChannel.register(selector, SelectionKey.OP_CONNECT); // OP_CONNECT 用户客户端向服务器端发起连接
       socketChannel.connect(new InetSocketAddress("127.0.0.1", 8899));
 
       while (true) {
@@ -39,7 +39,7 @@ public class NioClient {
             // 连接是否在进行
             if (client.isConnectionPending()) {
               try {
-                client.finishConnect();
+                client.finishConnect(); // 完成连接
                 ByteBuffer writeBuffer = ByteBuffer.allocate(1024);
                 writeBuffer.put((LocalDateTime.now() + " 连接成功").getBytes());
 

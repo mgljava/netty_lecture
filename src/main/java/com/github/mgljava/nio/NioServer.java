@@ -7,6 +7,7 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -18,7 +19,7 @@ import java.util.UUID;
  */
 public class NioServer {
 
-  private static Map<String, SocketChannel> clientMap = new HashMap<>();
+  private final static Map<String, SocketChannel> clientMap = new HashMap<>();
 
   /**
    * 与传统的IO编程不一样的是，现在NIO的服务端只有一个线程
@@ -34,7 +35,7 @@ public class NioServer {
 
     while (true) {
       try {
-        selector.select();
+        selector.select(); // 返回关注的selectionKey的数量
 
         final Set<SelectionKey> selectionKeys = selector.selectedKeys();
         selectionKeys.forEach(selectionKey -> {
@@ -57,10 +58,11 @@ public class NioServer {
               if (count > 0) {
 
                 readBuffer.flip();
-                Charset charset = Charset.forName("utf-8");
+                Charset charset = StandardCharsets.UTF_8;
                 String receiveMessage = String.valueOf(charset.decode(readBuffer).array());
                 System.out.println("client : " + client + ": " + receiveMessage);
 
+                // 获取发送者的 key（UUID）
                 String senderKey = null;
                 for (Entry<String, SocketChannel> entry : clientMap.entrySet()) {
                   if (client == entry.getValue()) {
@@ -69,6 +71,7 @@ public class NioServer {
                   }
                 }
 
+                // 发送消息到其他客户端
                 for (Entry<String, SocketChannel> entry : clientMap.entrySet()) {
                   final SocketChannel socketChannel = entry.getValue();
                   ByteBuffer writeBuffer = ByteBuffer.allocate(1024);

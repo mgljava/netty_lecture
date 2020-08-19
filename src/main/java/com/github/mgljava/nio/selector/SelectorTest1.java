@@ -27,16 +27,16 @@ public class SelectorTest1 {
 
     Selector selector = Selector.open();
 
-    for (int i = 0; i < ports.length; i++) {
+    for (int port : ports) {
       ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-      serverSocketChannel.configureBlocking(false);
+      serverSocketChannel.configureBlocking(false); // 是否阻塞
       final ServerSocket serverSocket = serverSocketChannel.socket();
-      InetSocketAddress inetSocketAddress = new InetSocketAddress(ports[i]);
+      InetSocketAddress inetSocketAddress = new InetSocketAddress(port);
       serverSocket.bind(inetSocketAddress);
 
-      serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+      serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT); // 将ServerSocket注册到selector上
 
-      System.out.println("监听端口: " + ports[i]);
+      System.out.println("监听端口: " + port);
     }
 
     while (true) {
