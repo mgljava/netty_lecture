@@ -10,7 +10,9 @@ import java.nio.channels.FileChannel.MapMode;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
+import java.nio.charset.StandardCharsets;
 
+// 通过内存映射文件来拷贝文件
 public class CharsetTest {
 
   public static void main(String[] args) throws Exception {
@@ -26,22 +28,22 @@ public class CharsetTest {
     final FileChannel inputFileChannel = inputRandomAccessFile.getChannel();
     final FileChannel outputFileChannel = outputRandomAccessFile.getChannel();
 
+    // 内存映射
     final MappedByteBuffer inputData = inputFileChannel.map(MapMode.READ_ONLY, 0, inputFileLength);
 
-    // final Charset charset = Charset.forName("utf-8");
-    final Charset charset = Charset.forName("iso-8859-1");
-    final CharsetEncoder encoder = charset.newEncoder(); // 编码：把字符串转为字节数组
-    final CharsetDecoder decoder = charset.newDecoder(); // 解码：把字节数组转为字符串
+    // 编码和解码一致就不会出现中文乱码问题
+    final Charset charset1 = StandardCharsets.UTF_8;
+    final Charset charset2 = StandardCharsets.ISO_8859_1;
+    final CharsetEncoder encoder = charset2.newEncoder(); // 编码：把字符串转为字节数组
+    final CharsetDecoder decoder = charset2.newDecoder(); // 解码：把字节数组转为字符串
 
-    Charset.availableCharsets().forEach((key, value) -> System.out.println(key + ", " + value));
+    // 获取系统所有的字符集
+    // Charset.availableCharsets().forEach((key, value) -> System.out.println(key + ", " + value));
 
-    System.out.println("\n");
-
-    System.out.println(Charset.defaultCharset());
-
+    // 把内存映射文件解码成CharBuffer
     CharBuffer charBuffer = decoder.decode(inputData);
-    System.out.println(charBuffer.get(0));
 
+    // 将charBuffer编码为byteBuffer
     ByteBuffer outputData = encoder.encode(charBuffer);
 
     outputFileChannel.write(outputData);
