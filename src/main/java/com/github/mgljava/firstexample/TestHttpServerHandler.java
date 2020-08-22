@@ -36,7 +36,6 @@ public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObjec
       FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, content);
       response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/plain");
       response.headers().set(HttpHeaderNames.CONTENT_LENGTH, content.readableBytes());
-      Channel channel = ctx.channel();
       ctx.writeAndFlush(response);
       ctx.channel().closeFuture();
     }

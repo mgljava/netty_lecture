@@ -26,7 +26,7 @@ public class NewIOServer {
     InetSocketAddress socketAddress = new InetSocketAddress(8899);
     ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
     ServerSocket serverSocket = serverSocketChannel.socket();
-    serverSocket.setReuseAddress(true);
+    serverSocket.setReuseAddress(true); // 启用或者禁用 SO_REUSEADDR，是否允许在状态 TIME_WAIT下从新绑定端口
     serverSocket.bind(socketAddress);
 
     ByteBuffer byteBuffer = ByteBuffer.allocate(4096);

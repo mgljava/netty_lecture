@@ -13,7 +13,7 @@ public class NewIOClient {
     socketChannel.connect(new InetSocketAddress("localhost", 8899));
     socketChannel.configureBlocking(true);
 
-    String fileName = "d:/VM/CentOS-7-x86_64-Minimal-1810.iso";
+    String fileName = "/Users/monk/Desktop/Study/Video/Cinema 4D R19从入门到精通.zip";
 
     try (FileChannel fileChannel = new FileInputStream(fileName).getChannel()) {
 
